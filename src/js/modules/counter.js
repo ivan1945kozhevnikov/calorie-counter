@@ -1,3 +1,5 @@
+import formatInput from '../utils/formatInput.js';
+
 class Counter {
   constructor(element) {
     this.root = element;
@@ -11,9 +13,9 @@ class Counter {
   }
 
   _onFieldInput() {
-    console.log(this.inputAge.value);
-    console.log(this.inputHeight.value);
-    console.log(this.inputWeight.value);
+    this.inputAge.value = formatInput(this.inputAge);
+    this.inputHeight.value = formatInput(this.inputHeight);
+    this.inputWeight.value = formatInput(this.inputWeight);
   }
 
   init() {
