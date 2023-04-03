@@ -5,23 +5,37 @@ class Counter {
     this.root = element;
     this.form = this.root.querySelector('.counter__form');
     this.elements = this.form.elements;
-    this.inputAge = this.elements.age;
-    this.inputHeight = this.elements.height;
-    this.inputWeight = this.elements.weight;
+    this.ageInput = this.elements.age;
+    this.heightInput = this.elements.height;
+    this.weightInput = this.elements.weight;
+    this.resetButton = this.elements.reset;
+    this.submitButton = this.elements.submit;
 
     this._onFieldInput = this._onFieldInput.bind(this);
+    this._onFormReset = this._onFormReset.bind(this);
   }
 
   _onFieldInput() {
-    this.inputAge.value = formatInput(this.inputAge);
-    this.inputHeight.value = formatInput(this.inputHeight);
-    this.inputWeight.value = formatInput(this.inputWeight);
+    this.ageInput.value = formatInput(this.ageInput);
+    this.heightInput.value = formatInput(this.heightInput);
+    this.weightInput.value = formatInput(this.weightInput);
+
+    if (this.form.checkValidity()) {
+      this.submitButton.disabled = false;
+      this.resetButton.disabled = false;
+    }
+  }
+
+  _onFormReset() {
+    this.submitButton.disabled = true;
+    this.resetButton.disabled = true;
   }
 
   init() {
-    this.inputAge.addEventListener('input', this._onFieldInput);
-    this.inputHeight.addEventListener('input', this._onFieldInput);
-    this.inputWeight.addEventListener('input', this._onFieldInput);
+    this.ageInput.addEventListener('input', this._onFieldInput);
+    this.heightInput.addEventListener('input', this._onFieldInput);
+    this.weightInput.addEventListener('input', this._onFieldInput);
+    this.form.addEventListener('reset', this._onFormReset);
   }
 }
 
