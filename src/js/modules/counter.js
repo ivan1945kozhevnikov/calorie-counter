@@ -4,6 +4,7 @@ class Counter {
   constructor(element) {
     this.root = element;
     this.form = this.root.querySelector('.counter__form');
+    this.inputsGroup = this.form.querySelector('.inputs-group');
     this.elements = this.form.elements;
     this.ageInput = this.elements.age;
     this.heightInput = this.elements.height;
@@ -15,15 +16,17 @@ class Counter {
     this._onFormReset = this._onFormReset.bind(this);
   }
 
-  _onFieldInput() {
-    this.ageInput.value = formatInput(this.ageInput);
-    this.heightInput.value = formatInput(this.heightInput);
-    this.weightInput.value = formatInput(this.weightInput);
+  _onFieldInput(evt) {
+    const { target } = evt;
 
-    if (this.form.checkValidity()) {
-      this.submitButton.disabled = false;
-      this.resetButton.disabled = false;
+    if (target.closest(`.${this.inputsGroup.className}`)) {
+      target.value = formatInput(target);
     }
+
+    this.submitButton.disabled = !this.form.checkValidity();
+    this.resetButton.disabled = !this.form.checkValidity();
+
+    console.log(target.value);
   }
 
   _onFormReset() {
@@ -32,9 +35,7 @@ class Counter {
   }
 
   init() {
-    this.ageInput.addEventListener('input', this._onFieldInput);
-    this.heightInput.addEventListener('input', this._onFieldInput);
-    this.weightInput.addEventListener('input', this._onFieldInput);
+    this.form.addEventListener('input', this._onFieldInput);
     this.form.addEventListener('reset', this._onFormReset);
   }
 }
