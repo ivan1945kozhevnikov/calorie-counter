@@ -1,5 +1,4 @@
 import formatInput from '../utils/formatInput.js';
-import countResult from '../utils/countResult.js';
 
 class Counter {
   constructor(element) {
@@ -34,12 +33,6 @@ class Counter {
 
   _onButtonClick() {
     this.submitButton.setAttribute('type', 'button');
-    countResult(
-      this.ageInput,
-      this.weightInput,
-      this.heightInput,
-      this.genderRadios
-    );
   }
 
   _onFormReset() {
