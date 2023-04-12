@@ -1,4 +1,3 @@
-const N = 1;
 const PhysicalActivityRatio = {
   MIN_COEF: 1.2,
   LOW_COEF: 1.375,
@@ -7,14 +6,19 @@ const PhysicalActivityRatio = {
   MAX_COEF: 1.9,
 };
 const PhysicalParametersRatio = {
-  GENDER_MALE: 5,
-  GENDER_FEMALE: 161,
+  MALE: 5,
+  FEMALE: 161,
   AGE: 5,
   HEIGHT: 6.25,
   WEIGHT: 10,
 };
-const LossGainWeight = {
-  WEIGHT_LOSS: N - N * 0.15,
-  WEIGHT_GAIN: N + N * 0.15,
+const LossGainWeightPercentage = {
+  WEIGHT_LOSS: 0.85,
+  WEIGHT_GAIN: 1.15,
 };
-console.log(PhysicalActivityRatio, PhysicalParametersRatio, LossGainWeight);
+
+export {
+  PhysicalActivityRatio,
+  PhysicalParametersRatio,
+  LossGainWeightPercentage,
+};
