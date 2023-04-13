@@ -1,4 +1,9 @@
 import formatInput from '../utils/formatInput.js';
+import {
+  PhysicalActivityRatio,
+  PhysicalParametersRatio,
+  LossGainWeightPercentage,
+} from '../utils/const.js';
 
 class Counter {
   constructor(element) {
@@ -33,6 +38,28 @@ class Counter {
 
   _onButtonClick() {
     this.submitButton.setAttribute('type', 'button');
+    const isFemale =
+      this.genderRadios.value === 'female'
+        ? -PhysicalParametersRatio.FEMALE
+        : PhysicalParametersRatio.MALE;
+
+    const N =
+      PhysicalParametersRatio.WEIGHT * this.weightInput.value +
+      PhysicalParametersRatio.HEIGHT * this.heightInput.value +
+      PhysicalParametersRatio.AGE * this.ageInput.value +
+      isFemale;
+
+    const keys = Object.keys(PhysicalActivityRatio);
+    for (let i = 0; i <= keys.length; i += 1) {
+      if (this.activityRadios.value.toUpperCase() === keys[i]) {
+        const normRatio = N * PhysicalActivityRatio[keys[i]];
+
+        const lossWeight = normRatio * LossGainWeightPercentage.WEIGHT_LOSS;
+        const gainWeight = normRatio * LossGainWeightPercentage.WEIGHT_GAIN;
+        console.log(lossWeight);
+        console.log(gainWeight);
+      }
+    }
   }
 
   _onFormReset() {

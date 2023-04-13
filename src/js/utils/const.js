@@ -1,9 +1,9 @@
 const PhysicalActivityRatio = {
-  MIN_COEF: 1.2,
-  LOW_COEF: 1.375,
-  MEDIUM_COEF: 1.55,
-  HIGH_COEF: 1.725,
-  MAX_COEF: 1.9,
+  MIN: 1.2,
+  LOW: 1.375,
+  MEDIUM: 1.55,
+  HIGH: 1.725,
+  MAX: 1.9,
 };
 const PhysicalParametersRatio = {
   MALE: 5,
