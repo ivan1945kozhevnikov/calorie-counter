@@ -38,34 +38,35 @@ class Counter {
 
   _onButtonClick() {
     this.submitButton.setAttribute('type', 'button');
-    const isFemale =
-      this.genderRadios.value === 'female'
-        ? -PhysicalParametersRatio.FEMALE
-        : PhysicalParametersRatio.MALE;
-
-    const N =
-      PhysicalParametersRatio.WEIGHT * this.weightInput.value +
-      PhysicalParametersRatio.HEIGHT * this.heightInput.value +
-      PhysicalParametersRatio.AGE * this.ageInput.value +
-      isFemale;
-
-    const keys = Object.keys(PhysicalActivityRatio);
-    for (let i = 0; i <= keys.length; i += 1) {
-      if (this.activityRadios.value.toUpperCase() === keys[i]) {
-        const normRatio = N * PhysicalActivityRatio[keys[i]];
-
-        const lossWeight = normRatio * LossGainWeightPercentage.WEIGHT_LOSS;
-        const gainWeight = normRatio * LossGainWeightPercentage.WEIGHT_GAIN;
-        console.log(lossWeight);
-        console.log(gainWeight);
-      }
-    }
+    this.calculateLossGainWeight();
   }
 
   _onFormReset() {
     this.submitButton.disabled = true;
     this.result.classList.add('counter__result--hidden');
     this.resetButton.disabled = true;
+  }
+
+  calculateNormalWeight() {
+    const formulaNormRatio =
+      PhysicalParametersRatio.WEIGHT * this.weightInput.value +
+      PhysicalParametersRatio.HEIGHT * this.heightInput.value +
+      PhysicalParametersRatio.AGE * this.ageInput.value +
+      PhysicalParametersRatio[this.genderRadios.value.toUpperCase()];
+
+    const normRatio =
+      formulaNormRatio *
+      PhysicalActivityRatio[this.activityRadios.value.toUpperCase()];
+    return normRatio;
+  }
+
+  calculateLossGainWeight() {
+    const lossWeight =
+      this.calculateNormalWeight() * LossGainWeightPercentage.WEIGHT_LOSS;
+    const gainWeight =
+      this.calculateNormalWeight() * LossGainWeightPercentage.WEIGHT_GAIN;
+    console.log(lossWeight);
+    console.log(gainWeight);
   }
 
   init() {

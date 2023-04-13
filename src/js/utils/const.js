@@ -7,7 +7,7 @@ const PhysicalActivityRatio = {
 };
 const PhysicalParametersRatio = {
   MALE: 5,
-  FEMALE: 161,
+  FEMALE: -161,
   AGE: 5,
   HEIGHT: 6.25,
   WEIGHT: 10,
