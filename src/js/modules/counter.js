@@ -21,7 +21,7 @@ class Counter {
     this.submitButton = this.elements.submit;
 
     this._onFieldInput = this._onFieldInput.bind(this);
-    this._onButtonClick = this._onButtonClick.bind(this);
+    this._onFormSubmit = this._onFormSubmit.bind(this);
     this._onFormReset = this._onFormReset.bind(this);
   }
 
@@ -36,9 +36,10 @@ class Counter {
     this.resetButton.disabled = !this.form.checkValidity();
   }
 
-  _onButtonClick() {
-    this.submitButton.setAttribute('type', 'button');
-    this.calculateLossGainWeight();
+  _onFormSubmit(evt) {
+    evt.preventDefault();
+    console.log(this.calculateMinCalorie());
+    console.log(this.calculateMaxCalorie());
   }
 
   _onFormReset() {
@@ -57,18 +58,17 @@ class Counter {
     );
   }
 
-  calculateLossGainWeight() {
-    const lossWeight =
-      this.calculateNormalCalorie() * LossGainWeightPercentage.WEIGHT_LOSS;
-    const gainWeight =
-      this.calculateNormalCalorie() * LossGainWeightPercentage.WEIGHT_GAIN;
-    console.log(lossWeight);
-    console.log(gainWeight);
+  calculateMinCalorie() {
+    return this.calculateNormalCalorie() * LossGainWeightPercentage.WEIGHT_LOSS;
+  }
+
+  calculateMaxCalorie() {
+    return this.calculateNormalCalorie() * LossGainWeightPercentage.WEIGHT_GAIN;
   }
 
   init() {
     this.form.addEventListener('input', this._onFieldInput);
-    this.submitButton.addEventListener('click', this._onButtonClick);
+    this.form.addEventListener('submit', this._onFormSubmit);
     this.form.addEventListener('reset', this._onFormReset);
   }
 }
