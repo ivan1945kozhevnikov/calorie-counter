@@ -47,24 +47,21 @@ class Counter {
     this.resetButton.disabled = true;
   }
 
-  calculateNormalWeight() {
-    const formulaNormRatio =
+  calculateNormalCalorie() {
+    return (
       PhysicalParametersRatio.WEIGHT * this.weightInput.value +
       PhysicalParametersRatio.HEIGHT * this.heightInput.value +
       PhysicalParametersRatio.AGE * this.ageInput.value +
-      PhysicalParametersRatio[this.genderRadios.value.toUpperCase()];
-
-    const normRatio =
-      formulaNormRatio *
-      PhysicalActivityRatio[this.activityRadios.value.toUpperCase()];
-    return normRatio;
+      PhysicalParametersRatio[this.genderRadios.value.toUpperCase()] *
+        PhysicalActivityRatio[this.activityRadios.value.toUpperCase()]
+    );
   }
 
   calculateLossGainWeight() {
     const lossWeight =
-      this.calculateNormalWeight() * LossGainWeightPercentage.WEIGHT_LOSS;
+      this.calculateNormalCalorie() * LossGainWeightPercentage.WEIGHT_LOSS;
     const gainWeight =
-      this.calculateNormalWeight() * LossGainWeightPercentage.WEIGHT_GAIN;
+      this.calculateNormalCalorie() * LossGainWeightPercentage.WEIGHT_GAIN;
     console.log(lossWeight);
     console.log(gainWeight);
   }
