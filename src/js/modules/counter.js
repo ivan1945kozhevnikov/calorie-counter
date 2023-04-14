@@ -1,13 +1,21 @@
 import formatInput from '../utils/formatInput.js';
+import Result from './result.js';
 import {
   PhysicalActivityRatio,
   PhysicalParametersRatio,
   LossGainWeightPercentage,
 } from '../utils/const.js';
 
+const resultElement = document.querySelector('.counter__result');
+const result = new Result(resultElement);
+
 class Counter {
   constructor(element) {
     this.root = element;
+    this.spanMin = document.getElementById('calories-minimal');
+    this.spanNorm = document.getElementById('calories-norm');
+    this.spanMax = document.getElementById('calories-maximal');
+
     this.form = this.root.querySelector('.counter__form');
     this.result = this.root.querySelector('.counter__result');
     this.inputsGroup = this.form.querySelector('.inputs-group');
@@ -38,13 +46,15 @@ class Counter {
 
   _onFormSubmit(evt) {
     evt.preventDefault();
-    console.log(this.calculateMinCalorie());
-    console.log(this.calculateMaxCalorie());
+    result.showCounter();
+    this.spanMin.textContent = Math.round(this.calculateMinCalorie());
+    this.spanNorm.textContent = Math.round(this.calculateNormalCalorie());
+    this.spanMax.textContent = Math.round(this.calculateMaxCalorie());
   }
 
   _onFormReset() {
+    result.hiideCounter();
     this.submitButton.disabled = true;
-    this.result.classList.add('counter__result--hidden');
     this.resetButton.disabled = true;
   }
 
