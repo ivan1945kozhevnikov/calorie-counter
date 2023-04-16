@@ -6,15 +6,9 @@ import {
   LossGainWeightPercentage,
 } from '../utils/const.js';
 
-const resultElement = document.querySelector('.counter__result');
-const result = new Result(resultElement);
-
 class Counter {
   constructor(element) {
     this.root = element;
-    this.spanMin = document.getElementById('calories-minimal');
-    this.spanNorm = document.getElementById('calories-norm');
-    this.spanMax = document.getElementById('calories-maximal');
 
     this.form = this.root.querySelector('.counter__form');
     this.result = this.root.querySelector('.counter__result');
@@ -27,6 +21,7 @@ class Counter {
     this.weightInput = this.elements.weight;
     this.resetButton = this.elements.reset;
     this.submitButton = this.elements.submit;
+    this.resultCount = new Result(this.result);
 
     this._onFieldInput = this._onFieldInput.bind(this);
     this._onFormSubmit = this._onFormSubmit.bind(this);
@@ -46,14 +41,15 @@ class Counter {
 
   _onFormSubmit(evt) {
     evt.preventDefault();
-    result.showCounter();
-    this.spanMin.textContent = Math.round(this.calculateMinCalorie());
-    this.spanNorm.textContent = Math.round(this.calculateNormalCalorie());
-    this.spanMax.textContent = Math.round(this.calculateMaxCalorie());
+    this.resultCount.show(
+      this.calculateMinCalorie(),
+      this.calculateNormalCalorie(),
+      this.calculateMaxCalorie()
+    );
   }
 
   _onFormReset() {
-    result.hiideCounter();
+    this.resultCount.hide();
     this.submitButton.disabled = true;
     this.resetButton.disabled = true;
   }

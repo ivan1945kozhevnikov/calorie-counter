@@ -1,14 +1,20 @@
 class Result {
-  constructor() {
-    this.resultCounter = document.querySelector('.counter__result');
+  constructor(element) {
+    this.root = element;
+    this.calorieMinOutput = this.root.querySelector('#calories-minimal');
+    this.calorieNormOutput = this.root.querySelector('#calories-norm');
+    this.calorieMaxOutput = this.root.querySelector('#calories-maximal');
   }
 
-  showCounter() {
-    this.resultCounter.classList.remove('counter__result--hidden');
+  show(caloriesMin, caloriesNorm, caloriesMax) {
+    this.root.classList.remove('counter__result--hidden');
+    this.calorieMinOutput.textContent = Math.round(caloriesMin);
+    this.calorieNormOutput.textContent = Math.round(caloriesNorm);
+    this.calorieMaxOutput.textContent = Math.round(caloriesMax);
   }
 
-  hiideCounter() {
-    this.resultCounter.classList.add('counter__result--hidden');
+  hide() {
+    this.root.classList.add('counter__result--hidden');
   }
 }
 
