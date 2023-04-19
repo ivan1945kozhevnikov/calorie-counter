@@ -11,7 +11,6 @@ class Counter {
     this.root = element;
 
     this.form = this.root.querySelector('.counter__form');
-    this.result = this.root.querySelector('.counter__result');
     this.inputsGroup = this.form.querySelector('.inputs-group');
     this.activityRadios = this.form.activity;
     this.elements = this.form.elements;
@@ -21,7 +20,7 @@ class Counter {
     this.weightInput = this.elements.weight;
     this.resetButton = this.elements.reset;
     this.submitButton = this.elements.submit;
-    this.resultCount = new Result(this.result);
+    this.result = new Result(this.root);
 
     this._onFieldInput = this._onFieldInput.bind(this);
     this._onFormSubmit = this._onFormSubmit.bind(this);
@@ -41,26 +40,34 @@ class Counter {
 
   _onFormSubmit(evt) {
     evt.preventDefault();
-    this.resultCount.show(
+    this.result.show(
       this.calculateMinCalorie(),
       this.calculateNormalCalorie(),
       this.calculateMaxCalorie()
     );
+    window.scrollTo({
+      top: this.form.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 
   _onFormReset() {
-    this.resultCount.hide();
+    this.result.hide();
     this.submitButton.disabled = true;
     this.resetButton.disabled = true;
+    window.scrollTo({
+      top: this.form.scrollTop,
+      behavior: 'smooth',
+    });
   }
 
   calculateNormalCalorie() {
     return (
-      PhysicalParametersRatio.WEIGHT * this.weightInput.value +
-      PhysicalParametersRatio.HEIGHT * this.heightInput.value +
-      PhysicalParametersRatio.AGE * this.ageInput.value +
-      PhysicalParametersRatio[this.genderRadios.value.toUpperCase()] *
-        PhysicalActivityRatio[this.activityRadios.value.toUpperCase()]
+      (PhysicalParametersRatio.WEIGHT * this.weightInput.value +
+        PhysicalParametersRatio.HEIGHT * this.heightInput.value -
+        PhysicalParametersRatio.AGE * this.ageInput.value +
+        PhysicalParametersRatio[this.genderRadios.value.toUpperCase()]) *
+      PhysicalActivityRatio[this.activityRadios.value.toUpperCase()]
     );
   }
 
