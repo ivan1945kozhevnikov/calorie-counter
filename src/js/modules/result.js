@@ -9,13 +9,27 @@ class Result {
 
   show(caloriesMin, caloriesNorm, caloriesMax) {
     this.result.classList.remove('counter__result--hidden');
-    this.calorieMinOutput.textContent = Math.round(caloriesMin);
-    this.calorieNormOutput.textContent = Math.round(caloriesNorm);
-    this.calorieMaxOutput.textContent = Math.round(caloriesMax);
+    this.calorieMinOutput.textContent = new Intl.NumberFormat('ru-RU').format(
+      Math.round(caloriesMin)
+    );
+    this.calorieNormOutput.textContent = new Intl.NumberFormat('ru-RU').format(
+      Math.round(caloriesNorm)
+    );
+    this.calorieMaxOutput.textContent = new Intl.NumberFormat('ru-RU').format(
+      Math.round(caloriesMax)
+    );
+    this.root.scrollIntoView({
+      block: 'end',
+      behavior: 'smooth',
+    });
   }
 
   hide() {
     this.result.classList.add('counter__result--hidden');
+    this.root.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth',
+    });
   }
 }
 

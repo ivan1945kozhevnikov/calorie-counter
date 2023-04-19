@@ -45,20 +45,12 @@ class Counter {
       this.calculateNormalCalorie(),
       this.calculateMaxCalorie()
     );
-    window.scrollTo({
-      top: this.form.scrollHeight,
-      behavior: 'smooth',
-    });
   }
 
   _onFormReset() {
     this.result.hide();
     this.submitButton.disabled = true;
     this.resetButton.disabled = true;
-    window.scrollTo({
-      top: this.form.scrollTop,
-      behavior: 'smooth',
-    });
   }
 
   calculateNormalCalorie() {
