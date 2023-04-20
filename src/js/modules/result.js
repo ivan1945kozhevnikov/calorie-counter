@@ -1,4 +1,4 @@
-import formatNumber from '../utils/createFormatter.js';
+import createFormatter from '../utils/createFormatter.js';
 
 class Result {
   constructor(element) {
@@ -10,15 +10,15 @@ class Result {
   }
 
   show(caloriesMin, caloriesNorm, caloriesMax) {
-    const formatNumb = formatNumber();
+    const formatter = createFormatter();
     this.result.classList.remove('counter__result--hidden');
-    this.calorieMinOutput.textContent = formatNumb.format(
+    this.calorieMinOutput.textContent = formatter.format(
       Math.round(caloriesMin)
     );
-    this.calorieNormOutput.textContent = formatNumb.format(
+    this.calorieNormOutput.textContent = formatter.format(
       Math.round(caloriesNorm)
     );
-    this.calorieMaxOutput.textContent = formatNumb.format(
+    this.calorieMaxOutput.textContent = formatter.format(
       Math.round(caloriesMax)
     );
     this.root.scrollIntoView({

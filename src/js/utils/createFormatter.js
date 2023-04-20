@@ -1,3 +1,3 @@
-const formatNumber = () => new Intl.NumberFormat('ru-RU');
+const createFormatter = () => new Intl.NumberFormat('ru-RU');
 
-export default formatNumber;
+export default createFormatter;
