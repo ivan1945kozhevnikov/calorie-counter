@@ -1,3 +1,5 @@
+import formatNumber from '../utils/createFormatter.js';
+
 class Result {
   constructor(element) {
     this.root = element;
@@ -8,14 +10,15 @@ class Result {
   }
 
   show(caloriesMin, caloriesNorm, caloriesMax) {
+    const formatNumb = formatNumber();
     this.result.classList.remove('counter__result--hidden');
-    this.calorieMinOutput.textContent = new Intl.NumberFormat('ru-RU').format(
+    this.calorieMinOutput.textContent = formatNumb.format(
       Math.round(caloriesMin)
     );
-    this.calorieNormOutput.textContent = new Intl.NumberFormat('ru-RU').format(
+    this.calorieNormOutput.textContent = formatNumb.format(
       Math.round(caloriesNorm)
     );
-    this.calorieMaxOutput.textContent = new Intl.NumberFormat('ru-RU').format(
+    this.calorieMaxOutput.textContent = formatNumb.format(
       Math.round(caloriesMax)
     );
     this.root.scrollIntoView({
